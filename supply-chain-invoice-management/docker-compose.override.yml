@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+  buyerdb:
+    container_name: buyerdb
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=test
+      - POSTGRES_DB=BuyerDb
+    restart: always
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_buyer:/var/lib/postgresql/data/
+
+
+  messagebroker:
+    container_name: messagebroker
+    hostname: supply-chain
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"

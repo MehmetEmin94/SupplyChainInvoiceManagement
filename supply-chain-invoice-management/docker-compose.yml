@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+  buyerdb:
+    image: postgres
+
+  messagebroker:
+    image: rabbitmq:management
+
+volumes:
+  postgres_buyer:
