@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using BuildingBlocks.Message.MassTransit;
 using BuildingBlocks.Message.Events;
 using Buyer.API.Data.Invoice;
+using BuildingBlocks.Message.MailService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,7 @@ builder.Services.AddDbContext<BuyerDbContext>(options =>
 builder.Services.AddMessageBroker(builder.Configuration, assembly);
 
 builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<EventPublisher>();
 
 

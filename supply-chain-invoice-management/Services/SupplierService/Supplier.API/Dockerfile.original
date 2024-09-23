@@ -10,8 +10,6 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Services/SupplierService/Supplier.API/Supplier.API.csproj", "Services/SupplierService/Supplier.API/"]
-COPY ["BuildingBlocks/BuildingBlocks.Message/BuildingBlocks.Message.csproj", "BuildingBlocks/BuildingBlocks.Message/"]
-COPY ["BuildingBlocks/BuildingBlocks/BuildingBlocks.csproj", "BuildingBlocks/BuildingBlocks/"]
 RUN dotnet restore "./Services/SupplierService/Supplier.API/Supplier.API.csproj"
 COPY . .
 WORKDIR "/src/Services/SupplierService/Supplier.API"

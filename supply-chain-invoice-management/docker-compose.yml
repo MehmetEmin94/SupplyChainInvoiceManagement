@@ -4,8 +4,36 @@ services:
   buyerdb:
     image: postgres
 
+  financedb:
+    image: postgres
+
+  supplierdb:
+    image: postgres
+
   messagebroker:
     image: rabbitmq:management
 
+  buyer.api:
+    image: ${DOCKER_REGISTRY-}buyerapi
+    build:
+      context: .
+      dockerfile: Services/BuyerService/Buyer.API/Dockerfile
+
+  supplier.api:
+    image: ${DOCKER_REGISTRY-}supplierapi
+    build:
+      context: .
+      dockerfile: Services/SupplierService/Supplier.API/Dockerfile
+
+  finance.api:
+    image: ${DOCKER_REGISTRY-}financeapi
+    build:
+      context: .
+      dockerfile: Services/FinanceService/Finance.API/Dockerfile
+
 volumes:
   postgres_buyer:
+  postgres_finance:
+  postgres_supplier:
+
+

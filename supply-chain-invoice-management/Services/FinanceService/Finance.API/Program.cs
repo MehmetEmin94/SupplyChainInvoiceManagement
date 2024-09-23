@@ -4,6 +4,7 @@ using Carter;
 using Finance.API.Data;
 using Finance.API.Data.Extentions;
 using Microsoft.EntityFrameworkCore;
+using BuildingBlocks.Message.MassTransit;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,8 @@ builder.Services.AddDbContext<FinanceDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("Database"));
 });
+
+builder.Services.AddMessageBroker(builder.Configuration, assembly);
 
 builder.Services.AddScoped<IInvoiceClaimRepository, InvoiceClaimRepository>();
 builder.Services.AddScoped<EventPublisher>();

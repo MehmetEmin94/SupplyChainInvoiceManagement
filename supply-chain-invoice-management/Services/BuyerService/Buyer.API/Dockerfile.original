@@ -10,8 +10,6 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Services/BuyerService/Buyer.API/Buyer.API.csproj", "Services/BuyerService/Buyer.API/"]
-COPY ["BuildingBlocks/BuildingBlocks.Message/BuildingBlocks.Message.csproj", "BuildingBlocks/BuildingBlocks.Message/"]
-COPY ["BuildingBlocks/BuildingBlocks/BuildingBlocks.csproj", "BuildingBlocks/BuildingBlocks/"]
 RUN dotnet restore "./Services/BuyerService/Buyer.API/Buyer.API.csproj"
 COPY . .
 WORKDIR "/src/Services/BuyerService/Buyer.API"

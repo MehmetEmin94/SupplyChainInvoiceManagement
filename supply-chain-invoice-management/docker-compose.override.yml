@@ -9,10 +9,35 @@ services:
       - POSTGRES_DB=BuyerDb
     restart: always
     ports:
-      - "5434:5432"
+      - "5435:5432"
     volumes:
       - postgres_buyer:/var/lib/postgresql/data/
 
+
+  financedb:
+    container_name: financedb
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=test
+      - POSTGRES_DB=FinanceDb
+    restart: always
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_finance:/var/lib/postgresql/data/
+
+
+  supplierdb:
+    container_name: supplierdb
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=test
+      - POSTGRES_DB=SupplierDb
+    restart: always
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_supplier:/var/lib/postgresql/data/
 
   messagebroker:
     container_name: messagebroker
@@ -24,3 +49,48 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+
+  buyer.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ConnectionStrings__Database=Server=buyerdb;Port=5432;Database=BuyerDb;User Id=postgres;Password=test;Include Error Detail=true
+    depends_on:
+      - buyerdb
+    ports:
+      - "6000:8080"
+      - "6060:8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+  supplier.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ConnectionStrings__Database=Server=supplierdb;Port=5432;Database=SupplierDb;User Id=postgres;Password=test;Include Error Detail=true
+    depends_on:
+      - supplierdb
+    ports:
+      - "6001:8080"
+      - "6061:8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+  finance.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ConnectionStrings__Database=Server=financedb;Port=5432;Database=FinanceDb;User Id=postgres;Password=test;Include Error Detail=true
+    depends_on:
+      - financedb
+    ports:
+      - "6002:8080"
+      - "6062:8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro

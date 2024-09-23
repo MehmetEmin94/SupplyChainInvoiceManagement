@@ -1,5 +1,6 @@
 using BuildingBlocks.Message.Events;
 using BuildingBlocks.Message.MailService;
+using BuildingBlocks.Message.MassTransit;
 using Carter;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -49,6 +50,8 @@ builder.Services.AddAuthentication(options => {
         )
     };
 });
+
+builder.Services.AddMessageBroker(builder.Configuration, assembly);
 
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IEmailService, EmailService>();

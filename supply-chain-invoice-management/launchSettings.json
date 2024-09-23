@@ -5,7 +5,8 @@
       "commandVersion": "1.0",
       "serviceActions": {
         "supplier.api": "StartDebugging",
-        "buyer.api": "StartDebugging"
+        "buyer.api": "StartDebugging",
+        "finance.api": "StartDebugging"
       }
     }
   }
