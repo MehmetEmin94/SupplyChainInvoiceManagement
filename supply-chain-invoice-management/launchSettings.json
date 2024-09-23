@@ -6,7 +6,8 @@
       "serviceActions": {
         "supplier.api": "StartDebugging",
         "buyer.api": "StartDebugging",
-        "finance.api": "StartDebugging"
+        "finance.api": "StartDebugging",
+        "yarpapigateway": "StartDebugging"
       }
     }
   }
